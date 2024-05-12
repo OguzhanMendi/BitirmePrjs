@@ -1,6 +1,8 @@
 ﻿using BitirmePrjs.DTOs;
+using BitirmePrjs.Helper;
 using BitirmePrjs.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 
 namespace BitirmePrjs.Controllers
 {
@@ -15,7 +17,7 @@ namespace BitirmePrjs.Controllers
             _repo = repo;
         }
 
-        
+
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginDTO dto)
         {
@@ -25,7 +27,20 @@ namespace BitirmePrjs.Controllers
                 if (ModelState.IsValid)
                 {
                     var kullanici = _repo.login(dto);
-                    return Ok(kullanici);
+                    if (kullanici != null)
+                    {
+                        GenerateToken generateToken = new GenerateToken();
+                        var token = generateToken.GenerateJwtToken(kullanici.email, kullanici.rol);
+                        var response = new
+                        {
+                            email = kullanici.email,
+                            sifre = kullanici.sifre,
+                            rol = kullanici.rol,
+                            token = token
+                        };
+                        return Ok(response);
+                    }
+
 
                 }
                 return BadRequest("Email veya Şifre Yanlış...");
@@ -40,7 +55,7 @@ namespace BitirmePrjs.Controllers
 
 
 
-       
+
         [HttpPost("Create")]
         public async Task<IActionResult> Create(LoginDTO dto)
         {
@@ -51,8 +66,21 @@ namespace BitirmePrjs.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    _repo.create(dto);
-                    return Ok("Başarıyla Oluştu");
+                    var kullanici = _repo.create(dto);
+                    if (kullanici != null)
+                    {
+                        GenerateToken generateToken = new GenerateToken();
+                        var token = generateToken.GenerateJwtToken(kullanici.email, kullanici.rol);
+                        var response = new
+                        {
+                            email = kullanici.email,
+                            sifre = kullanici.sifre,
+                            rol = kullanici.rol,
+                            token = token
+                        };
+                        return Ok(response);
+                    }
+
                 }
                 return BadRequest("email veya Şifre Yanlış....");
 

@@ -8,6 +8,6 @@ namespace BitirmePrjs.Repository.Interfaces
 
         public Kullanici login(LoginDTO dto);
 
-        public void create(LoginDTO dto);
+        public Kullanici create(LoginDTO dto);
     }
 }

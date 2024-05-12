@@ -18,8 +18,7 @@ namespace BitirmePrjs.Repository.Abstract
             _context = context;
         }
 
-
-        public void create(LoginDTO dto)
+        public Kullanici create(LoginDTO dto)
         {
             try
             {
@@ -29,16 +28,16 @@ namespace BitirmePrjs.Repository.Abstract
                 parameters.Add("@rol", "u", DbType.String);
 
                 using var connection = _context.CreateSqlConnection();
-                connection.Execute("sp_KullaniciOlustur", parameters, commandType: CommandType.StoredProcedure);
+                var kullanici = connection.Query<Kullanici>("sp_KullaniciOlustur", parameters, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                return kullanici;
             }
             catch (Exception ex)
             {
+                return null;
 
 
             }
-
         }
-
 
         public Kullanici login(LoginDTO dto)
         {
@@ -57,5 +56,7 @@ namespace BitirmePrjs.Repository.Abstract
                 return null;
             }
         }
+
+
     }
 }
