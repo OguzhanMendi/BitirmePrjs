@@ -29,7 +29,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     // ilk baþtaki v1 SABÝTTÝR DEÐÝÞTÝRME!!!!
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "BÝTÝRME PRJ", Version = "v0.0.2", Description = "BÝTÝRME PRJ" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "BÝTÝRME PRJ", Version = "v0.0.3", Description = "BÝTÝRME PRJ" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "Standard Authorization header using the Bearer scheme (JWT). Example: \"bearer {token}\"",
@@ -40,7 +40,11 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 builder.Services.AddSingleton<BContext>();
+
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+builder.Services.AddScoped<IMarkaRepository, MarkaRepository>();
+
+
 var app = builder.Build();
 // Global CORS policy
 app.UseCors(builder => builder
