@@ -10,10 +10,12 @@ namespace BitirmePrjs.Controllers
     public class UrunController : ControllerBase
     {
         private readonly IMarkaRepository _repo;
+        private readonly IUrunRepository _urunRepo;
 
-        public UrunController(IMarkaRepository repo)
+        public UrunController(IMarkaRepository repo, IUrunRepository urunRepo)
         {
             _repo = repo;
+            _urunRepo = urunRepo;
         }
 
         [HttpPost("MarkaCreate")]
@@ -74,5 +76,53 @@ namespace BitirmePrjs.Controllers
                 return NotFound();
             }
         }
+
+
+
+        [HttpPost("urunCreate")]
+        public async Task<IActionResult> urunCreate(UrunDTO dto)
+        {
+            try
+            {
+                if (dto == null) { return BadRequest("Veri Boş Olamaz"); }
+                if (ModelState.IsValid)
+                {
+
+                    ImageHelper imageHelper = new ImageHelper();
+                    var imageUrl = imageHelper.imgKaydet(dto.image);
+                    dto.imgUrl = imageUrl;
+                    dto.aktif = true;
+                    _urunRepo.create(dto);
+                    return Ok("Başarıyla Oluştu...");
+
+                }
+                return BadRequest("Yanlış Girildi...");
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("urunler")]
+        public async Task<IActionResult> urunler()
+        {
+            try
+            {
+                var list = _urunRepo.urunList();
+
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
     }
 }
