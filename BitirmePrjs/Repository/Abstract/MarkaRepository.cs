@@ -52,5 +52,7 @@ namespace BitirmePrjs.Repository.Abstract
                 throw;
             }
         }
+
+        
     }
 }

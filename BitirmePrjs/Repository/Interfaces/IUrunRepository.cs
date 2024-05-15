@@ -8,5 +8,12 @@ namespace BitirmePrjs.Repository.Interfaces
         public void create(UrunDTO dto);
 
         public IEnumerable<Urun> urunList();
+
+        public void update(UrunDTO dto);
+
+        public Urun urunbul(int id);
+
+        public void sil(int id);
+
     }
 }

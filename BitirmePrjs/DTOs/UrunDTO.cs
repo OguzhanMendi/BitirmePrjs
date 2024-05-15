@@ -2,6 +2,7 @@
 {
     public class UrunDTO
     {
+        public int id { get; set; }
         public string urunAd { get; set; }
         public string urunAciklama { get; set; }
         public string urunMarka { get; set; }

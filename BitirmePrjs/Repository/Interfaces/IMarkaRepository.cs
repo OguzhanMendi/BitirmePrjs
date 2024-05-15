@@ -10,5 +10,7 @@ namespace BitirmePrjs.Repository.Interfaces
 
         public IEnumerable<Marka> MarkalariListele();
 
+
+
     }
 }

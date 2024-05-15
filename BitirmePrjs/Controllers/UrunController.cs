@@ -123,6 +123,58 @@ namespace BitirmePrjs.Controllers
         }
 
 
+        [HttpGet("urunBul")]
+        public async Task<IActionResult> urunBul(int id)
+        {
+            try
+            {
+                var urun = _urunRepo.urunbul(id);
+
+                return Ok(urun);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("urunUpdate")]
+        public async Task<IActionResult> urunUpdate(UrunDTO dto)
+        {
+            try
+            {
+                ImageHelper imageHelper = new ImageHelper();
+                var imageUrl = imageHelper.imgKaydet(dto.image);
+                dto.imgUrl = imageUrl;
+                _urunRepo.update(dto);
+
+                return Ok("Başarılır");
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("urunSil")]
+        public async Task<IActionResult> urunSil(int id)
+        {
+            try
+            {
+                _urunRepo.sil(id);
+
+                return Ok("Başarılır");
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
 
     }
 }
