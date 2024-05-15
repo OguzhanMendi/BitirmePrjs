@@ -175,6 +175,47 @@ namespace BitirmePrjs.Controllers
             }
         }
 
+        [HttpGet("mainUrunler")]
+        public async Task<IActionResult> mainUrunler()
+        {
+            try
+            {
+                var list = _urunRepo.urunList();
+
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("benzerUrunler")]
+        public async Task<IActionResult> benzerUrunler(BenzerUrunlerDTO dto)
+        {
+            try
+            {
+                if (dto.urunMarka != null)
+                {
+                    var list = _urunRepo.benzerUrunList(dto);
+
+                    return Ok(list);
+                }
+
+                return BadRequest("");
+            }
+
+
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+
 
     }
 }

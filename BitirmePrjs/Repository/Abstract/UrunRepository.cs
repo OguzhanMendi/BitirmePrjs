@@ -4,6 +4,7 @@ using BitirmePrjs.Entities;
 using BitirmePrjs.Repository.Interfaces;
 using Dapper;
 using System.Data;
+using System.Xml;
 
 namespace BitirmePrjs.Repository.Abstract
 {
@@ -14,6 +15,14 @@ namespace BitirmePrjs.Repository.Abstract
         public UrunRepository(BContext context)
         {
             _context = context;
+        }
+
+        public IEnumerable<Urun> benzerUrunList(BenzerUrunlerDTO dto)
+        {
+            var query = @$"Select * From Urunler  where urunMarka='{dto.urunMarka}' and urunKategori='{dto.urunKategori}'";
+            using var connection = _context.CreateSqlConnection();
+            var urunler = connection.Query<Urun>(query);
+            return urunler.ToList();
         }
 
         public void create(UrunDTO dto)

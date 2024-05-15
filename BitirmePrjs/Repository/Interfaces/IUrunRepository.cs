@@ -15,5 +15,8 @@ namespace BitirmePrjs.Repository.Interfaces
 
         public void sil(int id);
 
+
+        public IEnumerable<Urun> benzerUrunList(BenzerUrunlerDTO dto);
+
     }
 }
