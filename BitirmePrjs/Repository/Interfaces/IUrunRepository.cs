@@ -18,5 +18,8 @@ namespace BitirmePrjs.Repository.Interfaces
 
         public IEnumerable<Urun> benzerUrunList(BenzerUrunlerDTO dto);
 
+
+        public IEnumerable<Urun> UrunAraList(UrunAraDTO dto);
+
     }
 }

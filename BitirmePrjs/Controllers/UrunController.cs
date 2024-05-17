@@ -217,5 +217,28 @@ namespace BitirmePrjs.Controllers
 
 
 
+        [HttpPost("urunArama")]
+        public async Task<IActionResult> urunArama(UrunAraDTO dto)
+        {
+            try
+            {
+                
+                    var list = _urunRepo.UrunAraList(dto);
+
+                    return Ok(list);
+                
+
+                return BadRequest("");
+            }
+
+
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+
     }
 }

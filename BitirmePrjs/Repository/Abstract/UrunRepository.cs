@@ -4,6 +4,7 @@ using BitirmePrjs.Entities;
 using BitirmePrjs.Repository.Interfaces;
 using Dapper;
 using System.Data;
+using System.Text;
 using System.Xml;
 
 namespace BitirmePrjs.Repository.Abstract
@@ -85,6 +86,91 @@ namespace BitirmePrjs.Repository.Abstract
                 throw;
             }
 
+        }
+
+        //public IEnumerable<Urun> UrunAraList(UrunAraDTO dto)
+        //{
+        //    try
+        //    {
+        //        var queryBuilder = new StringBuilder("SELECT * FROM Urunler WHERE 1=1");
+
+        //        // Parametre listesini oluştur
+        //        var parameters = new DynamicParameters();
+
+        //        // Marka için kontrol ve ekleme
+        //        if (!string.IsNullOrEmpty(dto.urunMarka))
+        //        {
+        //            queryBuilder.Append(" AND urunMarka LIKE @urunMarka");
+        //            parameters.Add("urunMarka", $"%{dto.urunMarka}%");
+        //        }
+
+        //        // Kategori için kontrol ve ekleme
+        //        if (!string.IsNullOrEmpty(dto.urunKategori))
+        //        {
+        //            queryBuilder.Append(" AND urunKategori LIKE @urunKategori");
+        //            parameters.Add("urunKategori", $"%{dto.urunKategori}%");
+        //        }
+
+        //        // Arama parametresi için kontrol ve ekleme
+        //        if (!string.IsNullOrEmpty(dto.search))
+        //        {
+        //            queryBuilder.Append(" AND (urunAd LIKE @search OR urunAciklama LIKE @search)");
+        //            parameters.Add("search", $"%{dto.search}%");
+        //        }
+
+        //        using var connection = _context.CreateSqlConnection();
+        //        var urunler = connection.Query<Urun>(queryBuilder.ToString(), parameters);
+        //        return urunler.ToList();
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        throw;
+        //    }
+        //}
+        public IEnumerable<Urun> UrunAraList(UrunAraDTO dto)
+        {
+            try
+            {
+
+                string query = @"SELECT * 
+FROM Urunler 
+WHERE 1=1
+AND (
+    urunMarka LIKE @search 
+    AND urunKategori LIKE @search 
+    AND urunAd LIKE @search 
+    AND urunAciklama LIKE @search
+    AND urunMarka LIKE @search1 
+    AND urunKategori LIKE @search1 
+    AND urunAd LIKE @search1 
+    AND urunAciklama LIKE @search1
+    AND urunMarka LIKE @search2 
+    AND urunKategori LIKE @search2 
+    AND urunAd LIKE @search2 
+    AND urunAciklama LIKE @search2
+    AND urunMarka LIKE @search3 
+    AND urunKategori LIKE @search3 
+    AND urunAd LIKE @search3 
+    AND urunAciklama LIKE @search3
+)";
+                var parameters = new DynamicParameters();
+                parameters.Add("search", $"%{dto.search}%");
+                parameters.Add("search1", $"%{dto.search1}%");
+                parameters.Add("search2", $"%{dto.search2}%");
+                parameters.Add("search3", $"%{dto.search3}%");
+
+
+
+
+                using var connection = _context.CreateSqlConnection();
+                var urunler = connection.Query<Urun>(query, parameters);
+                return urunler.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public Urun urunbul(int id)
