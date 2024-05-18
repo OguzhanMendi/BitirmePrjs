@@ -38,12 +38,12 @@ namespace BitirmePrjs.Controllers
 
 
         [HttpPost("SepetList")]
-        public async Task<IActionResult> SepetList()
+        public async Task<IActionResult> SepetList(indirimDTO dto)
         {
             try
             {
 
-             var list =   _repo.SepetList();
+             var list =   _repo.SepetList(dto);
 
                 
                 return Ok(list);
@@ -99,5 +99,43 @@ namespace BitirmePrjs.Controllers
 
         }
 
+
+
+
+
+        [HttpGet("gecmisSiparisler")]
+        public async Task<IActionResult> gecmisSiparisler(string email)
+        {
+            try
+            {
+                var list = _repo.gecmisSiparisler(email);
+
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+
+        [HttpGet("siparisIdDetay")]
+        public async Task<IActionResult> siparisIdDetay(string siparisId)
+        {
+            try
+            {
+                var list = _repo.siparisIdList(siparisId);
+
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+        }
     }
 }

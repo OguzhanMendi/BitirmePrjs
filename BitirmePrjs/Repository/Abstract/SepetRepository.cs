@@ -43,6 +43,16 @@ namespace BitirmePrjs.Repository.Abstract
             {
             }
         }
+
+        public IEnumerable<Sepet> gecmisSiparisler(string email)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@useremail", email, DbType.String); 
+            using var connection = _context.CreateSqlConnection();
+            var sepet = connection.Query<Sepet>("sp_gecmisSiparisler", parameters, commandType: CommandType.StoredProcedure);
+            return sepet;
+        }
+
         public void sepetAdetDegistir(SepetAdetDTO dto)
         {
             var parameters = new DynamicParameters();
@@ -52,12 +62,14 @@ namespace BitirmePrjs.Repository.Abstract
             using var connection = _context.CreateSqlConnection();
             var kullanici = connection.Execute("sp_SepetAdetDegistir", parameters, commandType: CommandType.StoredProcedure);
         }
-        public IEnumerable<Sepet> SepetList()
+        public IEnumerable<Sepet> SepetList(indirimDTO dto)
         {
             try
             {
                 using var connection = _context.CreateSqlConnection();
-                var sepet = connection.Query<Sepet>("sp_SepetList", commandType: CommandType.StoredProcedure);
+                var parameters = new DynamicParameters();
+                parameters.Add("@indKod ", dto.indKod, DbType.String);
+                var sepet = connection.Query<Sepet>("sp_SepetList", parameters, commandType: CommandType.StoredProcedure);
                 return sepet;
             }
             catch (Exception ex)
@@ -74,6 +86,15 @@ namespace BitirmePrjs.Repository.Abstract
             parameters.Add("@aktifmi", dto.aktifmi, DbType.Boolean);
             using var connection = _context.CreateSqlConnection();
             var kullanici = connection.Execute("sp_SepetOnayla", parameters, commandType: CommandType.StoredProcedure);
+        }
+
+        public IEnumerable<Sepet> siparisIdList(string siparisId)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@siparisId", siparisId, DbType.String);
+            using var connection = _context.CreateSqlConnection();
+            var sepet = connection.Query<Sepet>("sp_siparisIddetay", parameters, commandType: CommandType.StoredProcedure);
+            return sepet;
         }
     }
 }

@@ -17,5 +17,11 @@
 
         public int urunFiyat { get; set; }
 
+        public decimal indirimliTutar { get; set; }
+
+        public string indKod { get; set; }
+
+        //indirimliTutar
+
     }
 }

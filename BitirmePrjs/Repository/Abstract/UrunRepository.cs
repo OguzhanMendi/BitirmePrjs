@@ -132,28 +132,13 @@ namespace BitirmePrjs.Repository.Abstract
         {
             try
             {
-
                 string query = @"SELECT * 
 FROM Urunler 
-WHERE 1=1
-AND (
-    urunMarka LIKE @search 
-    AND urunKategori LIKE @search 
-    AND urunAd LIKE @search 
-    AND urunAciklama LIKE @search
-    AND urunMarka LIKE @search1 
-    AND urunKategori LIKE @search1 
-    AND urunAd LIKE @search1 
-    AND urunAciklama LIKE @search1
-    AND urunMarka LIKE @search2 
-    AND urunKategori LIKE @search2 
-    AND urunAd LIKE @search2 
-    AND urunAciklama LIKE @search2
-    AND urunMarka LIKE @search3 
-    AND urunKategori LIKE @search3 
-    AND urunAd LIKE @search3 
-    AND urunAciklama LIKE @search3
-)";
+WHERE 
+    (urunMarka LIKE @search OR urunKategori LIKE @search OR urunAd LIKE @search OR urunAciklama LIKE @search)
+    AND
+    (urunMarka LIKE @search2 OR urunKategori LIKE @search2 OR urunAd LIKE @search2 OR urunAciklama LIKE @search2)";
+
                 var parameters = new DynamicParameters();
                 parameters.Add("search", $"%{dto.search}%");
                 parameters.Add("search1", $"%{dto.search1}%");

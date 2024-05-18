@@ -7,11 +7,16 @@ namespace BitirmePrjs.Repository.Interfaces
     {
         public void Create(SepetDTO dto);
 
-        public IEnumerable<Sepet> SepetList();
+        public IEnumerable<Sepet> SepetList(indirimDTO dto);
 
         public void sepetAdetDegistir(SepetAdetDTO dto);
 
         public void sepetOnayla(SepetOnaylaDTO dto);
+
+
+        public IEnumerable<Sepet> gecmisSiparisler(string email);
+
+        public IEnumerable<Sepet> siparisIdList(string siparisId);
 
 
     }
