@@ -25,5 +25,7 @@ namespace BitirmePrjs.Helper
             return imgUrl;
         }
 
+
+
     }
 }
