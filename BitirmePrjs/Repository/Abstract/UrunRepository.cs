@@ -20,7 +20,7 @@ namespace BitirmePrjs.Repository.Abstract
 
         public IEnumerable<Urun> benzerUrunList(BenzerUrunlerDTO dto)
         {
-            var query = @$"Select * From Urunler  where urunMarka='{dto.urunMarka}' and urunKategori='{dto.urunKategori}'";
+            var query = @$"Select * From Urunler  where  urunKategori='{dto.urunKategori}'";
             using var connection = _context.CreateSqlConnection();
             var urunler = connection.Query<Urun>(query);
             return urunler.ToList();
