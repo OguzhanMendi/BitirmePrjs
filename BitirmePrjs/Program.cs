@@ -29,7 +29,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     // ilk baþtaki v1 SABÝTTÝR DEÐÝÞTÝRME!!!!
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "BÝTÝRME PRJ", Version = "v0.1.0", Description = "MMSOFT ~ MUSTAFA OÐUZHAN MENDÝ BÝTÝRME PRJ" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "BÝTÝRME PRJ", Version = "v0.1.1", Description = "MMSOFT ~ MUSTAFA OÐUZHAN MENDÝ BÝTÝRME PRJ" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "Standard Authorization header using the Bearer scheme (JWT). Example: \"bearer {token}\"",
@@ -45,7 +45,9 @@ builder.Services.AddScoped<ILoginRepository, LoginRepository>();
 builder.Services.AddScoped<IMarkaRepository, MarkaRepository>();
 builder.Services.AddScoped<IUrunRepository,UrunRepository >();
 builder.Services.AddScoped<ISepetRepository,SepetRepository >();
-builder.Services.AddScoped<IFavRepository,FavRepository >();
+builder.Services.AddScoped<IFavRepository,FavRepository>();
+builder.Services.AddScoped<IUserRepository,UserRepository>();
+
 
 
 
